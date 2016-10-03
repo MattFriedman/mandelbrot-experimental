@@ -9,9 +9,9 @@ class PropertiesLoader {
 
     Properties properties
 
-    PropertiesLoader() {
+    PropertiesLoader(String propertiesFilename) {
         properties = new Properties()
-        def is = getClass().getResourceAsStream('/mandelbrot.properties')
+        def is = getClass().getResourceAsStream(propertiesFilename)
         properties.load(is)
     }
 
@@ -26,7 +26,4 @@ class PropertiesLoader {
     String getString(def name) {
         properties.get(name) as String
     }
-
-
-
 }

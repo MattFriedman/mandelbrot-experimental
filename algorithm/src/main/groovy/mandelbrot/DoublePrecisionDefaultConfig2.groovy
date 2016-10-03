@@ -46,21 +46,21 @@ class DoublePrecisionDefaultConfig2 implements Config<Double> {
 
     @Override
     Double getRealStart() {
-        -2D
+        propertiesLoader.getDouble('real.start')
     }
 
     @Override
     Double getRealEnd() {
-        1D
+        propertiesLoader.getDouble('real.end')
     }
 
     @Override
     Double getImagStart() {
-        -1.5D
+        propertiesLoader.getDouble('imaginary.start')
     }
 
     @Override
     Double getImagEnd() {
-        1.5D
+        propertiesLoader.getDouble('imaginary.end')
     }
 }

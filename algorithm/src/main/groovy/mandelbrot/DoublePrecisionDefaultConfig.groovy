@@ -5,6 +5,8 @@ package mandelbrot
  * <br>
  * Created by mfriedman on 2016-09-12.
  */
+
+@Deprecated
 class DoublePrecisionDefaultConfig implements Config<Double> {
 
     @Override

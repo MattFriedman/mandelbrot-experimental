@@ -1,6 +1,7 @@
 package mandelbrot
 
 import mandelbrot.Point
+import org.apfloat.Apfloat
 
 import javax.imageio.ImageIO
 import java.awt.*
@@ -13,6 +14,25 @@ import java.util.List
  * Created by mfriedman on 2016-09-12.
  */
 class MandelbrotProcessor<T> {
+
+    static {
+
+        Apfloat.metaClass.plus = { Apfloat addend ->
+            delegate.add(addend)
+        }
+
+        Apfloat.metaClass.minus = { Apfloat subtrahend ->
+            delegate.subtract(subtrahend)
+        }
+
+        Apfloat.metaClass.div = { Apfloat divisor ->
+            delegate.divide(divisor)
+        }
+
+        Apfloat.metaClass.next = {
+            delegate.add(new Apfloat(1))
+        }
+    }
 
     final T incrementReal
     final T incrementImag
@@ -83,7 +103,6 @@ class MandelbrotProcessor<T> {
             def mandelbrotResult
 
             mandelbrotResult = mandelbrotAlgorithm.compute(imaginaryPoint.real, imaginaryPoint.imag)
-
 
             mandelbrotResult.x = imaginaryPoint.x
             mandelbrotResult.y = imaginaryPoint.y
