@@ -97,7 +97,7 @@ class MandelbrotProcessor<T> {
 
         }.collect()
 
-        ImageIO.write(image, "png", new File("/tmp/mandelbrot.png"))
+        ImageIO.write(image, "png", new File("/tmp/mandelbrota.png"))
 
     }
 }
