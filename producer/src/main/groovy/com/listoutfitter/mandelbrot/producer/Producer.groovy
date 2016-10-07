@@ -14,6 +14,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ImportResource
+
+import static com.listoutfitter.mandelbrot.producer.Config.pointsQueueName
+import static com.listoutfitter.mandelbrot.producer.Config.resultsQueueName
+
 /**
  * (c) Exchange Solutions Inc.
  * <br>
@@ -23,11 +27,13 @@ import org.springframework.context.annotation.ImportResource
 @ImportResource("/mandelbrot-integration.xml")
 class Producer {
 
-    final queueName = 'mandelbrot'
-
     @Bean
-    Queue mandelbrotQueue() {
-        new Queue(queueName, false)
+    Queue pointsQueue() {
+        new Queue(pointsQueueName, false)
+    }
+
+    @Bean resultsQueue() {
+        new Queue(resultsQueueName, false)
     }
 
     @Bean
@@ -36,8 +42,13 @@ class Producer {
     }
 
     @Bean
-    Binding binding() {
-        BindingBuilder.bind(mandelbrotQueue()).to(mandelbrotExchange()).with(queueName)
+    Binding pointsBinding() {
+        BindingBuilder.bind(pointsQueue()).to(mandelbrotExchange()).with(pointsQueueName)
+    }
+
+    @Bean
+    Binding resultsBinding() {
+        BindingBuilder.bind(resultsQueue()).to(mandelbrotExchange()).with(resultsQueueName)
     }
 
     @Bean
@@ -45,7 +56,7 @@ class Producer {
                                              MessageListenerAdapter listenerAdapter) {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
-        container.setQueueNames(queueName);
+        container.setQueueNames(pointsQueueName);
         container.setMessageListener(listenerAdapter);
         return container;
     }

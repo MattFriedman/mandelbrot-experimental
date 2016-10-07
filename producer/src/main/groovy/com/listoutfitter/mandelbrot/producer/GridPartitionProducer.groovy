@@ -16,16 +16,16 @@ import static org.apache.commons.collections4.ListUtils.partition
 class GridPartitionProducer {
 
     @Autowired
-    MandelbrotGateway mandelbrotGateway
+    PointsGateway mandelbrotGateway
 
-    void produce(Grid<?> grid) {
+    void produce(Grid<?> grid, int partitionSize) {
 
         def id = UUID.randomUUID()
 
-        def pointsInGrid = grid.getPointsInGrid()
-        def total = pointsInGrid.size()
+        List<List<Point>> partitions = partition(grid.getPointsInGrid(), partitionSize)
 
-        List<List<Point>> partitions = partition(grid.getPointsInGrid(), 4)
+        // total number of partitions
+        def total = partitions.size()
 
         for (List<Point> pointList : partitions) {
 

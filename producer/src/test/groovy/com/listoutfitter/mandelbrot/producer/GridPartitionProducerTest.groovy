@@ -23,7 +23,7 @@ class GridPartitionProducerTest extends Specification {
             def height = width
             def grid = Grid.of(width, height)
         when:
-            gridPartitionProducer.produce(grid)
+            gridPartitionProducer.produce(grid, 16)
         then:
             println 'foo'
     }
