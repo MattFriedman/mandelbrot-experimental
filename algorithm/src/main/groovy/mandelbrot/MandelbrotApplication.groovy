@@ -9,9 +9,9 @@ class MandelbrotApplication {
 
     public static void main(String[] args) {
 
-        final int maxIterations = 1000
+        final int maxIterations = 10000
 
-        def width = 640
+        def width = 400
         def height = width
 
 //        def realStart = -2.0
@@ -36,17 +36,17 @@ Max Iterations Per Pixel	5000000000
         def zoom = 1000000005
 
 
-        X = -0.235125
-        Y = 0.827215
-        zoom = 4000000
+//        X = -0.235125
+//        Y = 0.827215
+//        zoom = 4000000
 
-        X = -0.722
-        Y = 0.246
-        zoom = 1/0.019 * 10
+//        X = -0.722
+//        Y = 0.246
+//        zoom = 1/0.019 * 10
 
-        X = -1.25066
-        Y = 0.02012
-        zoom = 1.7 * 10
+//        X = -1.25066
+//        Y = 0.02012
+//        zoom = 1.7 * 10
 
         def realStart = X - 2/zoom
         def realEnd = X + 1/zoom
@@ -55,8 +55,8 @@ Max Iterations Per Pixel	5000000000
 
         ///-1.108,0.230
 
-        def grid = new Grid2<Double>(width, height, 1, imageEnd, imagStart, realEnd, realStart)
-//        def grid = new Grid2<Double>(width, height, 1, 1.5, -1.5, 1.0, -2.0)
+        def grid = new Grid<Double>(width, height, realStart, realEnd, imagStart, imageEnd, 1d)
+//        def grid = new Grid<Double>(width, height, 1, 1.5, -1.5, 1.0, -2.0)
 //−0.1011 + 0.9563i.
         def processor = new MandelbrotProcessor<Double>(grid, new DoublePrecisionFactory())
 

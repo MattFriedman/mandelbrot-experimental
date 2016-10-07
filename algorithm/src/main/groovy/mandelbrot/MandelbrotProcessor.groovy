@@ -1,6 +1,5 @@
 package mandelbrot
 
-import mandelbrot.Point
 import org.apfloat.Apfloat
 
 import javax.imageio.ImageIO
@@ -59,10 +58,10 @@ class MandelbrotProcessor<T> {
 //        }
 //    }
 
-    Grid2<T> grid
+    Grid<T> grid
     Factory<T> factory
 
-    MandelbrotProcessor(Grid2<T> grid, Factory<T> factory) {
+    MandelbrotProcessor(Grid<T> grid, Factory<T> factory) {
         this.grid = grid
         this.factory = factory
     }

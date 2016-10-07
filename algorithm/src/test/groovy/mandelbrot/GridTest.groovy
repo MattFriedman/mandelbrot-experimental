@@ -8,28 +8,24 @@ import java.util.stream.Collectors
 /**
  * (c) Exchange Solutions Inc.
  * <br>
- * Created by mfriedman on 2016-10-02.
+ * Created by mfriedman on 2016-10-03.
  */
 class GridTest extends Specification {
 
+    def "test getPointsInGrid"() {
 
-    def "test getPoints"() {
         given:
-            def grid = new Grid(new DoublePrecisionDefaultConfig2(new PropertiesLoader('/mandelbrot.properties')))
+            def width = 16
+            def height = width
+            def grid = Grid.of(width, height)
         when:
-            def points = grid.getPointsList()
+            def points = grid.getPointsInGrid()
         then:
 
-            def parts = ListUtils.partition(points, 1000)
+            def ll = ListUtils.partition(points, width + 1)
 
-            def serializedParts = parts.parallelStream().map { list ->
-                list.parallelStream().map { p ->
-                    "${p.x}:${p.y}"
-                }.collect(Collectors.toList())
-            }.collect()
-
-            println "foo"
-
-
+            ll.each {
+                println it.stream().map { "${it.x}:${it.y}".padLeft(5, ' ') }.collect(Collectors.toList()).join(', ')
+            }
     }
 }
