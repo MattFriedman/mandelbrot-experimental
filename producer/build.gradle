@@ -12,6 +12,7 @@ apply plugin: 'spring-boot'
 dependencies {
 
     compile project(':algorithm')
+    compile project(':shared')
 
     compile("org.springframework.boot:spring-boot-starter-web")
 

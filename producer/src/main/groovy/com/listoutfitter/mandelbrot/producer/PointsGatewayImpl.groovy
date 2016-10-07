@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.integration.IntegrationMessageHeaderAccessor
 import org.springframework.stereotype.Component
 
-import static com.listoutfitter.mandelbrot.producer.Config.mandelbrotExchangeName
-import static com.listoutfitter.mandelbrot.producer.Config.pointsQueueName
+import static mandelbrot.shared.SharedConfig.mandelbrotExchangeName
+import static mandelbrot.shared.SharedConfig.pointsQueueName
 
 /**
  * (c) Exchange Solutions Inc.
