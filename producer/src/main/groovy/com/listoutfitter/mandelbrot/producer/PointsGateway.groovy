@@ -7,5 +7,5 @@ import mandelbrot.Point
  * Created by mfriedman on 2016-10-06.
  */
 interface PointsGateway {
-    void send(List<Point> pointList, long total, UUID id)
+    void send(List<Point> pointList, int totalPoints, UUID id, int width, int maxIterations)
 }

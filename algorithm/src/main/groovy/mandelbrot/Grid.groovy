@@ -21,6 +21,7 @@ class Grid<T> {
     final T incrementImag
     final T incrementReal
 
+    @Deprecated // todo this may not work properly
     static Grid<Double> of(double width, double height) {
         new Grid<Double>(width, height, 2, 1, -1.5, 1.5, 1)
     }

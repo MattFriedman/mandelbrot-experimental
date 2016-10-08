@@ -26,14 +26,16 @@ class PointsGatewayImpl implements PointsGateway {
     ObjectMapper objectMapper = new ObjectMapper()
 
     @Override
-    void send(List<Point> pointList, long total, UUID id) {
+    void send(List<Point> pointList, int totalPoints, UUID id, int width, int maxIterations) {
 
         def bytes = objectMapper.writeValueAsBytes(pointList)
 
         // see: http://docs.spring.io/spring-integration/docs/current/reference/html/messaging-routing-chapter.html#aggregator-functionality
         def msg = MessageBuilder.withBody(bytes)
                 .setHeader(IntegrationMessageHeaderAccessor.CORRELATION_ID, id)
-                .setHeader(IntegrationMessageHeaderAccessor.SEQUENCE_SIZE, total)
+                .setHeader(IntegrationMessageHeaderAccessor.SEQUENCE_SIZE, totalPoints)
+                .setHeader('width', width)
+                .setHeader('maxIterations', maxIterations)
                 .build()
 
         def cd = new CorrelationData(id.toString())

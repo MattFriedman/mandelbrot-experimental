@@ -28,12 +28,12 @@ class Producer {
 
     @Bean
     Queue pointsQueue() {
-        new Queue(pointsQueueName, false)
+        new Queue(pointsQueueName, true)
     }
 
     @Bean
     resultsQueue() {
-        new Queue(resultsQueueName, false)
+        new Queue(resultsQueueName, true)
     }
 
     @Bean

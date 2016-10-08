@@ -14,10 +14,10 @@ class MandelbrotApplication {
         def width = 400
         def height = width
 
-//        def realStart = -2.0
-//        def realEnd = 1.0
-//        def imagStart = -1.5
-//        def imageEnd = 1.5
+        def realStart = -2.0
+        def realEnd = 1.0
+        def imagStart = -1.5
+        def imageEnd = 1.5
 
 
         /*
@@ -48,10 +48,10 @@ Max Iterations Per Pixel	5000000000
 //        Y = 0.02012
 //        zoom = 1.7 * 10
 
-        def realStart = X - 2/zoom
-        def realEnd = X + 1/zoom
-        def imagStart = Y - 1.5/zoom
-        def imageEnd = Y + 1.5/zoom
+//        def realStart = X - 2/zoom
+//        def realEnd = X + 1/zoom
+//        def imagStart = Y - 1.5/zoom
+//        def imageEnd = Y + 1.5/zoom
 
         ///-1.108,0.230
 

@@ -66,18 +66,18 @@ class MandelbrotProcessor<T> {
         this.factory = factory
     }
 
-    int black = 0;
+        int black = 0;
 
-    int[] getColors(int maxIterations) {
-        int[] colors = new int[maxIterations];
-        for (int i = 0; i < maxIterations; i++) {
-            float hue = i / 256f
-            float saturation = 1f
-            float brightness = i / (i + 8f)
-            colors[i] = Color.HSBtoRGB(hue, saturation, brightness);
+        int[] getColors(int maxIterations) {
+            int[] colors = new int[maxIterations];
+            for (int i = 0; i < maxIterations; i++) {
+                float hue = i / 256f
+                float saturation = 1f
+                float brightness = i / (i + 8f)
+                colors[i] = Color.HSBtoRGB(hue, saturation, brightness);
+            }
+            colors
         }
-        colors
-    }
 
     void process(final int maxIterations) {
 

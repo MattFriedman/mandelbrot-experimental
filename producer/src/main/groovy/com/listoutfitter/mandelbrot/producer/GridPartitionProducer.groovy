@@ -18,7 +18,7 @@ class GridPartitionProducer {
     @Autowired
     PointsGateway mandelbrotGateway
 
-    void produce(Grid<?> grid, int partitionSize) {
+    void produce(Grid<?> grid, int partitionSize, int width, int maxIterations) {
 
         def id = UUID.randomUUID()
 
@@ -29,7 +29,7 @@ class GridPartitionProducer {
 
         for (List<Point> pointList : partitions) {
 
-            mandelbrotGateway.send(pointList, total, id)
+            mandelbrotGateway.send(pointList, total, id, width, maxIterations)
         }
     }
 }

@@ -19,11 +19,25 @@ class GridPartitionProducerTest extends Specification {
 
     def "Produce"() {
         given:
-            def width = 16
+
+            final int maxIterations = 1000
+
+            def width = 1280 * 2
             def height = width
-            def grid = Grid.of(width, height)
+
+            def realStart = -2.0
+            def realEnd = 1.0
+            def imagStart = -1.5
+            def imageEnd = 1.5
+
+            def grid = new Grid<Double>(width, height, realStart, realEnd, imagStart, imageEnd, 1d)
+
+
+            def partitionSize = 7500
         when:
-            gridPartitionProducer.produce(grid, 16)
+
+            gridPartitionProducer.produce(grid, partitionSize, width, maxIterations)
+
         then:
             println 'foo'
     }
