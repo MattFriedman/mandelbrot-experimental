@@ -11,19 +11,23 @@
 		http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <int-amqp:inbound-channel-adapter channel="bytesFromRabbit"
+                                      queue-names="points"
+                                      connection-factory="connectionFactory"/>
 
-    <!--todo leaving this here for now. I may switch back to using this type of impl, needs profiling and investigation as to why it seemed slow when I tried it.-->
+    <int:transformer ref="jsonBytesToPointsListTransformer" input-channel="bytesFromRabbit"
+                     output-channel="pointsListChannel"/>
 
-    <!--<int:gateway id="pointsGateway"-->
-                 <!--default-request-channel="outgoingPartitionChannel"-->
-                 <!--service-interface="com.listoutfitter.mandelbrot.producer.PointsGateway"/>-->
+    <int:transformer input-channel="pointsListChannel" output-channel="resultsChannel" ref="pointListTransformer"/>
 
-    <!--<int:object-to-json-transformer input-channel="outgoingPartitionChannel" output-channel="jsonPointsChannel"/>-->
+    <int:object-to-json-transformer input-channel="resultsChannel" output-channel="resultsAsJsonChannel"/>
 
-    <!--<int:channel id="jsonPointsChannel"/>-->
+    <int:channel id="resultsAsJsonChannel"/>
 
-    <!--<int-amqp:outbound-channel-adapter id="outboundPointsChannelAdapter"-->
-                                       <!--routing-key="points"-->
-                                       <!--exchange-name="mandelbrot-exchange"-->
-                                       <!--channel="jsonPointsChannel"/>-->
+    <int-amqp:outbound-channel-adapter id="outboundResultsChannelAdapter"
+                                       exchange-name="mandelbrot-exchange"
+                                       routing-key="results"
+                                       channel="resultsAsJsonChannel"
+                                       />
+
 </beans>

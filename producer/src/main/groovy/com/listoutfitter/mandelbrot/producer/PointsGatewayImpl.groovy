@@ -3,43 +3,60 @@ package com.listoutfitter.mandelbrot.producer
 import com.fasterxml.jackson.databind.ObjectMapper
 import mandelbrot.Point
 import org.springframework.amqp.core.MessageBuilder
+import org.springframework.amqp.rabbit.connection.ConnectionFactory
 import org.springframework.amqp.rabbit.core.RabbitTemplate
-import org.springframework.amqp.rabbit.support.CorrelationData
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.integration.IntegrationMessageHeaderAccessor
 import org.springframework.stereotype.Component
 
-import static mandelbrot.shared.SharedConfig.mandelbrotExchangeName
-import static mandelbrot.shared.SharedConfig.pointsQueueName
-
+import javax.annotation.PostConstruct
 /**
  * (c) Exchange Solutions Inc.
  * <br>
- * Created by mfriedman on 2016-10-06.
+ * Created by mfriedman on 2016-10-08.
  */
 @Component
 class PointsGatewayImpl implements PointsGateway {
 
-    @Autowired
     RabbitTemplate rabbitTemplate
 
-    ObjectMapper objectMapper = new ObjectMapper()
+    ObjectMapper objectMapper
 
+    @Autowired
+    ConnectionFactory connectionFactory
+
+    @PostConstruct
+    def init() {
+        rabbitTemplate = new RabbitTemplate(connectionFactory)
+        objectMapper = new ObjectMapper()
+    }
+
+    /**
+     * Note: I tried sending this via the xml configuration style but it seemed very slow. Using
+     * rabbitTemplate appears to be faster but I don't know why; perhaps I'll profile this.
+     * Might have been a heap space thing, needs investigation...
+     */
     @Override
-    void send(List<Point> pointList, int totalPoints, UUID id, int width, int maxIterations) {
+    void send(List<Point> pointList,
+              int totalPartitions,
+              UUID id,
+              int width,
+              int maxIterations) {
 
-        def bytes = objectMapper.writeValueAsBytes(pointList)
+        /*
+        TODO given a sufficiently large grid this will use up all mem and give a oome - can the data be streamed to avoid this?
 
-        // see: http://docs.spring.io/spring-integration/docs/current/reference/html/messaging-routing-chapter.html#aggregator-functionality
-        def msg = MessageBuilder.withBody(bytes)
-                .setHeader(IntegrationMessageHeaderAccessor.CORRELATION_ID, id)
-                .setHeader(IntegrationMessageHeaderAccessor.SEQUENCE_SIZE, totalPoints)
+         */
+
+        def json = objectMapper.writeValueAsBytes(pointList)
+
+        def message = MessageBuilder
+                .withBody(json)
+                .setHeader('correlationId', id)
+                .setHeader('sequenceSize', totalPartitions)
                 .setHeader('width', width)
                 .setHeader('maxIterations', maxIterations)
                 .build()
 
-        def cd = new CorrelationData(id.toString())
-
-        rabbitTemplate.send(mandelbrotExchangeName, pointsQueueName, msg, cd)
+        rabbitTemplate.send('mandelbrot-exchange', 'points', message)
     }
 }

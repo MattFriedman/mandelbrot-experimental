@@ -11,19 +11,20 @@
 		http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <rabbit:connection-factory id="connectionFactory" host="docker-host" port="5672"/>
 
-    <!--todo leaving this here for now. I may switch back to using this type of impl, needs profiling and investigation as to why it seemed slow when I tried it.-->
+    <rabbit:template id="amqpTemplate" connection-factory="connectionFactory"/>
 
-    <!--<int:gateway id="pointsGateway"-->
-                 <!--default-request-channel="outgoingPartitionChannel"-->
-                 <!--service-interface="com.listoutfitter.mandelbrot.producer.PointsGateway"/>-->
+    <rabbit:admin connection-factory="connectionFactory"/>
 
-    <!--<int:object-to-json-transformer input-channel="outgoingPartitionChannel" output-channel="jsonPointsChannel"/>-->
+    <rabbit:queue name="points" durable="true"/>
+    <rabbit:queue name="results" durable="true"/>
 
-    <!--<int:channel id="jsonPointsChannel"/>-->
+    <rabbit:topic-exchange name="mandelbrot-exchange">
+        <rabbit:bindings>
+            <rabbit:binding queue="points" pattern="points"/>
+            <rabbit:binding queue="results" pattern="results"/>
+        </rabbit:bindings>
+    </rabbit:topic-exchange>
 
-    <!--<int-amqp:outbound-channel-adapter id="outboundPointsChannelAdapter"-->
-                                       <!--routing-key="points"-->
-                                       <!--exchange-name="mandelbrot-exchange"-->
-                                       <!--channel="jsonPointsChannel"/>-->
 </beans>

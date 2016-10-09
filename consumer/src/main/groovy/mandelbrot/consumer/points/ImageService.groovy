@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component
 import javax.imageio.ImageIO
 import java.awt.Color
 import java.awt.image.BufferedImage
+import java.util.stream.IntStream
 
 /**
  * (c) Exchange Solutions Inc.
@@ -33,33 +34,29 @@ class ImageService {
         int imgWidth = width + 1
         int imgHeight = imgWidth
 
-        def image = new BufferedImage(imgWidth, imgHeight, BufferedImage.TYPE_INT_RGB);
-
-        int i = 0
+        def img = new BufferedImage(imgWidth, imgHeight, BufferedImage.TYPE_INT_RGB);
 
         message.payload.parallelStream().forEach { partition ->
             partition.parallelStream().forEach { result ->
-
-                def numIterations = result.totalIterations
-
-                result.inSet ?
-                        image.setRGB(result.x, result.y, colors[numIterations]) :
-                        image.setRGB(result.x, result.y, black)
-
+                final int color = result.inSet ? colors[result.totalIterations - 1] : black
+                img.setRGB(result.x, result.y, color)
             }
         }
 
-        ImageIO.write(image, "png", new File("/tmp/mandelbrot-ABC.png"))
+        ImageIO.write(img, "png", new File("/tmp/mandelbrot-ABC.png"))
     }
 
     static int[] getColors(int maxIterations) {
+
         int[] colors = new int[maxIterations];
-        for (int i = 0; i < maxIterations; i++) {
+
+        IntStream.range(0, maxIterations).each { i ->
             float hue = i / 256f
             float saturation = 1f
             float brightness = i / (i + 8f)
             colors[i] = Color.HSBtoRGB(hue, saturation, brightness);
         }
+
         colors
     }
 }

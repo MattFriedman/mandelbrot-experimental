@@ -1,23 +1,18 @@
-package mandelbrot.consumer.points
+package com.listoutfitter.mandelbrot.producer
 
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.annotation.ImportResource
-
 /**
  * (c) Exchange Solutions Inc.
  * <br>
- * Created by mfriedman on 2016-10-07.
+ * Created by mfriedman on 2016-10-06.
  */
 @SpringBootApplication
-@ImportResource([
-        'points-consumer.xml',
-        'results-consumer.xml',
-        'shared-rabbit-config.xml'
-])
-class PointsConsumer {
+@ImportResource(['shared-rabbit-config.xml'])
+class Config {
 
     public static void main(String[] args) {
-        SpringApplication.run(PointsConsumer, args)
+        SpringApplication.run(Config, args);
     }
 }

@@ -11,19 +11,14 @@
 		http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <int-amqp:inbound-channel-adapter channel="incomingResults"
+                                      queue-names="results"
+                                      connection-factory="connectionFactory"/>
 
-    <!--todo leaving this here for now. I may switch back to using this type of impl, needs profiling and investigation as to why it seemed slow when I tried it.-->
+    <int:json-to-object-transformer input-channel="incomingResults" output-channel="mandelbrotResultsChannel"/>
 
-    <!--<int:gateway id="pointsGateway"-->
-                 <!--default-request-channel="outgoingPartitionChannel"-->
-                 <!--service-interface="com.listoutfitter.mandelbrot.producer.PointsGateway"/>-->
+    <int:aggregator input-channel="mandelbrotResultsChannel" output-channel="imageDataChannel"/>
 
-    <!--<int:object-to-json-transformer input-channel="outgoingPartitionChannel" output-channel="jsonPointsChannel"/>-->
+    <int:service-activator id="imageProcessor" input-channel="imageDataChannel" ref="imageService"/>
 
-    <!--<int:channel id="jsonPointsChannel"/>-->
-
-    <!--<int-amqp:outbound-channel-adapter id="outboundPointsChannelAdapter"-->
-                                       <!--routing-key="points"-->
-                                       <!--exchange-name="mandelbrot-exchange"-->
-                                       <!--channel="jsonPointsChannel"/>-->
 </beans>
