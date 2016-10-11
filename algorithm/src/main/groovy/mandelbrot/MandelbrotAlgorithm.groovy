@@ -1,9 +1,12 @@
+/*
+ * Copyright (c) 2016. Matt Friedman <matt.friedman@gmail.com>
+ * All Rights Reserved.
+ */
+
 package mandelbrot
 
 /**
- *
- * Mandelbrot Experiment
-*
+
  * Created by Matt Friedman 2016-09-11
  */
 interface MandelbrotAlgorithm<T> {

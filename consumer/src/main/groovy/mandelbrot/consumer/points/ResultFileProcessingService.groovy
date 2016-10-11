@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016. Matt Friedman <matt.friedman@gmail.com>
+ * All Rights Reserved.
+ */
+
 package mandelbrot.consumer.points
 
 import com.fasterxml.jackson.core.type.TypeReference
@@ -23,9 +28,7 @@ import java.awt.image.BufferedImage
 import java.util.List
 import java.util.stream.IntStream
 /**
- *
- * Mandelbrot Experiment
-*
+
  * Created by Matt Friedman 2016-10-10
  */
 @Component

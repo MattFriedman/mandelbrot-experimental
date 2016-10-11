@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016. Matt Friedman <matt.friedman@gmail.com>
+ * All Rights Reserved.
+ */
+
 package mandelbrot
 
 import com.google.common.cache.CacheBuilder
@@ -5,9 +10,7 @@ import com.google.common.cache.CacheLoader
 import com.google.common.cache.LoadingCache
 
 /**
- *
- * Mandelbrot Experiment
-*
+
  * Created by Matt Friedman 2016-09-12
  */
 class CachedOperations<T> implements Operations<T> {

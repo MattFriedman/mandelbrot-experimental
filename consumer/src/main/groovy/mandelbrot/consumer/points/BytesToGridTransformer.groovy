@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016. Matt Friedman <matt.friedman@gmail.com>
+ * All Rights Reserved.
+ */
+
 package mandelbrot.consumer.points
 
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -8,9 +13,7 @@ import org.springframework.messaging.Message
 import org.springframework.messaging.handler.annotation.Header
 import org.springframework.stereotype.Component
 /**
- *
- * Mandelbrot Experiment
-*
+
  * Created by Matt Friedman 2016-10-10
  */
 @Component

@@ -1,11 +1,14 @@
+/*
+ * Copyright (c) 2016. Matt Friedman <matt.friedman@gmail.com>
+ * All Rights Reserved.
+ */
+
 package mandelbrot
 
 import groovy.transform.builder.Builder
 
 /**
- *
- * Mandelbrot Experiment
-*
+
  * Created by Matt Friedman 2016-09-11
  */
 @Builder

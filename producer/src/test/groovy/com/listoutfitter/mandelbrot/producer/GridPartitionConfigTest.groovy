@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016. Matt Friedman <matt.friedman@gmail.com>
+ * All Rights Reserved.
+ */
+
 package com.listoutfitter.mandelbrot.producer
 
 import mandelbrot.Grid
@@ -7,9 +12,7 @@ import org.springframework.context.annotation.ComponentScan
 import org.springframework.test.context.ContextConfiguration
 import spock.lang.Specification
 /**
- *
- * Mandelbrot Experiment
-*
+
  * Created by Matt Friedman 2016-10-06
  */
 @ContextConfiguration(classes = [Config])
@@ -26,7 +29,7 @@ class GridPartitionConfigTest extends Specification {
 
             final int maxIterations = 1000
 
-            def width = 1280
+            def width = 256
             def height = width
 
             def realStart = Grid.defaultRealStart
@@ -36,7 +39,7 @@ class GridPartitionConfigTest extends Specification {
 
             def grid = new Grid<Double>(width, height, realStart, realEnd, imagStart, imagEnd, 1d)
 
-            def partitionSize = 10000
+            def partitionSize = 3000
 
         when:
 

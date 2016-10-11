@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016. Matt Friedman <matt.friedman@gmail.com>
+ * All Rights Reserved.
+ */
+
 package mandelbrot
 
 import com.fasterxml.jackson.annotation.JsonCreator
@@ -6,9 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 
 import java.util.stream.IntStream
 /**
- *
- * Mandelbrot Experiment
-*
+
  * Created by Matt Friedman 2016-10-02
  */
 class Grid<T> {
@@ -25,10 +28,10 @@ class Grid<T> {
     final T incrementImag
     final T incrementReal
 
-    public static final defaultRealStart = -2.0
-    public static final defaultRealEnd = 1.0
-    public static final defaultImagStart = -1.5
-    public static final defaultImagEnd = 1.5
+    public static final double defaultRealStart = -2.0
+    public static final double defaultRealEnd = 1.0
+    public static final double defaultImagStart = -1.5
+    public static final double defaultImagEnd = 1.5
 
 //    static Grid<Double> of(double width, double height) {
 //        new Grid<Double>(width, height, defaultRealStart, defaultRealEnd, defaultImagStart, defaultImagEnd, 1)

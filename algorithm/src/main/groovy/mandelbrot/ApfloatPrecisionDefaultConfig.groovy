@@ -1,11 +1,13 @@
+/*
+ * Copyright (c) 2016. Matt Friedman <matt.friedman@gmail.com>
+ * All Rights Reserved.
+ */
+
 package mandelbrot
 
 import org.apfloat.Apfloat
 
 /**
- *
- * Mandelbrot Experiment
-*
  * Created by Matt Friedman 2016-09-12
  */
 class ApfloatPrecisionDefaultConfig implements Config<Apfloat> {

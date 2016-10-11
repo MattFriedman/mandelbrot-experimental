@@ -1,10 +1,13 @@
+/*
+ * Copyright (c) 2016. Matt Friedman <matt.friedman@gmail.com>
+ * All Rights Reserved.
+ */
+
 package mandelbrot.shared
 
 import org.springframework.context.annotation.Configuration
 /**
- *
- * Mandelbrot Experiment
-*
+
  * Created by Matt Friedman 2016-10-06
  */
 @Configuration

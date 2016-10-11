@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016. Matt Friedman <matt.friedman@gmail.com>
+ * All Rights Reserved.
+ */
+
 package com.listoutfitter.mandelbrot.producer
 
 import mandelbrot.Grid
@@ -7,9 +12,7 @@ import org.springframework.stereotype.Component
 
 import static org.apache.commons.collections4.ListUtils.partition
 /**
- *
- * Mandelbrot Experiment
-*
+
  * Created by Matt Friedman 2016-10-02
  */
 @Component

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016. Matt Friedman <matt.friedman@gmail.com>
+ * All Rights Reserved.
+ */
+
 package mandelbrot.consumer.points
 
 import mandelbrot.MandelbrotResult
@@ -12,9 +17,7 @@ import java.awt.image.BufferedImage
 import java.util.stream.IntStream
 
 /**
- *
- * Mandelbrot Experiment
-*
+
  * Created by Matt Friedman 2016-10-07
  */
 @Component

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016. Matt Friedman <matt.friedman@gmail.com>
+ * All Rights Reserved.
+ */
+
 package com.listoutfitter.mandelbrot.producer
 
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -11,9 +16,7 @@ import org.springframework.stereotype.Component
 
 import javax.annotation.PostConstruct
 /**
- *
- * Mandelbrot Experiment
-*
+
  * Created by Matt Friedman 2016-10-08
  */
 @Component

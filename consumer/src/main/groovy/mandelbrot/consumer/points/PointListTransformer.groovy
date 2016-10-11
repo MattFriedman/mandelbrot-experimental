@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016. Matt Friedman <matt.friedman@gmail.com>
+ * All Rights Reserved.
+ */
+
 package mandelbrot.consumer.points
 
 import mandelbrot.DoublePrecisionMandelbrotAlgorithm
@@ -10,9 +15,7 @@ import org.springframework.stereotype.Component
 
 import java.util.stream.Collectors
 /**
- *
- * Mandelbrot Experiment
-*
+
  * Created by Matt Friedman 2016-10-07
  */
 @Component
