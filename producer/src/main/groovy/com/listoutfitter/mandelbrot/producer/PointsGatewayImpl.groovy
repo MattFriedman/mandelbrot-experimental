@@ -1,6 +1,7 @@
 package com.listoutfitter.mandelbrot.producer
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import mandelbrot.Grid
 import mandelbrot.Point
 import org.springframework.amqp.core.MessageBuilder
 import org.springframework.amqp.rabbit.connection.ConnectionFactory
@@ -10,9 +11,10 @@ import org.springframework.stereotype.Component
 
 import javax.annotation.PostConstruct
 /**
- * (c) Exchange Solutions Inc.
- * <br>
- * Created by mfriedman on 2016-10-08.
+ *
+ * Mandelbrot Experiment
+*
+ * Created by Matt Friedman 2016-10-08
  */
 @Component
 class PointsGatewayImpl implements PointsGateway {
@@ -35,26 +37,45 @@ class PointsGatewayImpl implements PointsGateway {
      * rabbitTemplate appears to be faster but I don't know why; perhaps I'll profile this.
      * Might have been a heap space thing, needs investigation...
      */
+//    @Deprecated
+//    @Override
+//    void send(List<Point> pointList,
+//              int totalPartitions,
+//              UUID id,
+//              int width,
+//              int maxIterations) {
+//
+//        def json = objectMapper.writeValueAsBytes(pointList)
+//
+//        def message = MessageBuilder
+//                .withBody(json)
+//                .setHeader('correlationId', id)
+//                .setHeader('sequenceSize', totalPartitions)
+//                .setHeader('width', width)
+//                .setHeader('maxIterations', maxIterations)
+//                .build()
+//
+//        rabbitTemplate.send('mandelbrot-exchange', 'points', message)
+//    }
+
     @Override
-    void send(List<Point> pointList,
-              int totalPartitions,
-              UUID id,
-              int width,
-              int maxIterations) {
+    void send(
+            List<Point> pointList,
+            Grid grid,
+            int totalPartitions,
+            UUID correlationId,
+            int maxIterations
+    ) {
 
-        /*
-        TODO given a sufficiently large grid this will use up all mem and give a oome - can the data be streamed to avoid this?
-
-         */
-
-        def json = objectMapper.writeValueAsBytes(pointList)
+        def jsonPointList = objectMapper.writeValueAsBytes(pointList)
+        def jsonGrid = objectMapper.writeValueAsBytes(grid)
 
         def message = MessageBuilder
-                .withBody(json)
-                .setHeader('correlationId', id)
-                .setHeader('sequenceSize', totalPartitions)
-                .setHeader('width', width)
+                .withBody(jsonPointList)
+                .setHeader('correlationId', correlationId)
                 .setHeader('maxIterations', maxIterations)
+                .setHeader('grid', jsonGrid)
+                .setHeader('sequenceSize', totalPartitions)
                 .build()
 
         rabbitTemplate.send('mandelbrot-exchange', 'points', message)

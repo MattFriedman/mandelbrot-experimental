@@ -15,19 +15,17 @@
                                       queue-names="points"
                                       connection-factory="connectionFactory"/>
 
-    <int:transformer ref="jsonBytesToPointsListTransformer" input-channel="bytesFromRabbit"
-                     output-channel="pointsListChannel"/>
-
-    <int:transformer input-channel="pointsListChannel" output-channel="resultsChannel" ref="pointListTransformer"/>
-
-    <int:object-to-json-transformer input-channel="resultsChannel" output-channel="resultsAsJsonChannel"/>
-
-    <int:channel id="resultsAsJsonChannel"/>
-
-    <int-amqp:outbound-channel-adapter id="outboundResultsChannelAdapter"
-                                       exchange-name="mandelbrot-exchange"
-                                       routing-key="results"
-                                       channel="resultsAsJsonChannel"
-                                       />
+    <int:chain input-channel="bytesFromRabbit">
+        <int:transformer ref="bytesToGridTransformer"/>
+        <int:transformer ref="jsonBytesToPointsListTransformer"/>
+        <int:transformer ref="pointListTransformer"/>
+        <int:header-enricher>
+            <int:header name="width" expression="headers['grid'].width" type="java.lang.Integer"/>
+            <int:header name="grid" overwrite="true" value="null"/>
+        </int:header-enricher>
+        <int:object-to-json-transformer/>
+        <int-amqp:outbound-channel-adapter id="outboundResultsChannelAdapter" exchange-name="mandelbrot-exchange"
+                                           routing-key="results"/>
+    </int:chain>
 
 </beans>

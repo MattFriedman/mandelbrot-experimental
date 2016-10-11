@@ -12,9 +12,10 @@ import java.awt.image.BufferedImage
 import java.util.stream.IntStream
 
 /**
- * (c) Exchange Solutions Inc.
- * <br>
- * Created by mfriedman on 2016-10-07.
+ *
+ * Mandelbrot Experiment
+*
+ * Created by Matt Friedman 2016-10-07
  */
 @Component
 class ImageService {

@@ -1,9 +1,10 @@
 package mandelbrot
 
 /**
- * (c) Exchange Solutions Inc.
- * <br>
- * Created by mfriedman on 2016-10-04.
+ *
+ * Mandelbrot Experiment
+*
+ * Created by Matt Friedman 2016-10-04
  */
 class DoublePrecisionFactory<T> implements Factory<Double> {
 

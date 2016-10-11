@@ -1,31 +1,45 @@
 package mandelbrot.consumer.points
 
 import mandelbrot.DoublePrecisionMandelbrotAlgorithm
+import mandelbrot.Grid
 import mandelbrot.MandelbrotResult
 import mandelbrot.Point
 import org.springframework.integration.annotation.Transformer
+import org.springframework.messaging.handler.annotation.Header
 import org.springframework.stereotype.Component
 
 import java.util.stream.Collectors
-
 /**
- * (c) Exchange Solutions Inc.
- * <br>
- * Created by mfriedman on 2016-10-07.
+ *
+ * Mandelbrot Experiment
+*
+ * Created by Matt Friedman 2016-10-07
  */
 @Component
 class PointListTransformer {
 
-    def algo = new DoublePrecisionMandelbrotAlgorithm(1000)
-
     @Transformer
-    List<MandelbrotResult> transform(List<Point<Double>> points) {
+    List<MandelbrotResult> transform(
+            List<Point<Double>> points,
+            @Header('maxIterations') int maxIterations,
+            @Header('grid') Grid grid,
+            @Header('sequenceSize') seqSize,
+            @Header('correlationId') id
 
-        points.parallelStream().map { p ->
-            def result = algo.compute(p.real, p.imag)
-            result.x = p.x
-            result.y = p.y
+    ) {
+
+        def algo = new DoublePrecisionMandelbrotAlgorithm(maxIterations)
+
+        points.parallelStream().map { point ->
+
+            point.real = grid.realStart + grid.incrementReal * point.x
+            point.imag = grid.imagStart + grid.incrementImag * point.y
+
+            def result = algo.compute(point.real, point.imag)
+            result.x = point.x
+            result.y = point.y
             result
+
         }.collect(Collectors.toList())
     }
 }

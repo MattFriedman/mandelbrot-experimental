@@ -5,9 +5,10 @@ import mandelbrot.MandelbrotResult
 import mandelbrot.Point
 import org.springframework.messaging.handler.annotation.Header
 /**
- * (c) Exchange Solutions Inc.
- * <br>
- * Created by mfriedman on 2016-10-07.
+ *
+ * Mandelbrot Experiment
+*
+ * Created by Matt Friedman 2016-10-07
  */
 @Deprecated
 class PointToResultTransformer {

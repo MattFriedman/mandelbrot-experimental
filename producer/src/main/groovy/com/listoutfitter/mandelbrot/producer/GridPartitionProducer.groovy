@@ -7,16 +7,19 @@ import org.springframework.stereotype.Component
 
 import static org.apache.commons.collections4.ListUtils.partition
 /**
- * (c) Exchange Solutions Inc.
- * <br>
- * Created by mfriedman on 2016-10-02.
+ *
+ * Mandelbrot Experiment
+*
+ * Created by Matt Friedman 2016-10-02
  */
 @Component
+@Deprecated
 class GridPartitionProducer {
 
     @Autowired
     PointsGateway pointsGateway
 
+    @Deprecated
     void produce(Grid<?> grid, int partitionSize, int width, int maxIterations) {
 
         def correlationId = UUID.randomUUID()

@@ -49,5 +49,9 @@ subprojects {
         // https://mvnrepository.com/artifact/org.springframework.integration/spring-integration-stream
         compile group: 'org.springframework.integration', name: 'spring-integration-stream', version: '4.3.4.RELEASE'
 
+        // https://mvnrepository.com/artifact/org.springframework.integration/spring-integration-file
+        compile group: 'org.springframework.integration', name: 'spring-integration-file', version: '4.3.4.RELEASE'
+
+
     }
 }

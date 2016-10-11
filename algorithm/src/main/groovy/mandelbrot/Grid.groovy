@@ -1,10 +1,15 @@
 package mandelbrot
 
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonProperty
+
 import java.util.stream.IntStream
 /**
- * (c) Exchange Solutions Inc.
- * <br>
- * Created by mfriedman on 2016-10-02.
+ *
+ * Mandelbrot Experiment
+*
+ * Created by Matt Friedman 2016-10-02
  */
 class Grid<T> {
 
@@ -20,17 +25,24 @@ class Grid<T> {
     final T incrementImag
     final T incrementReal
 
-
     public static final defaultRealStart = -2.0
     public static final defaultRealEnd = 1.0
     public static final defaultImagStart = -1.5
     public static final defaultImagEnd = 1.5
 
-    static Grid<Double> of(double width, double height) {
-        new Grid<Double>(width, height, defaultRealStart, defaultRealEnd, defaultImagStart, defaultImagEnd, 1)
-    }
+//    static Grid<Double> of(double width, double height) {
+//        new Grid<Double>(width, height, defaultRealStart, defaultRealEnd, defaultImagStart, defaultImagEnd, 1)
+//    }
 
-    def Grid(T width, T height, T realStart, T realEnd, T imagStart, T imagEnd, T one) {
+    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
+    public Grid(
+            @JsonProperty('width') T width,
+            @JsonProperty('height') T height,
+            @JsonProperty('realStart') T realStart,
+            @JsonProperty('realEnd') T realEnd,
+            @JsonProperty('imagStart') T imagStart,
+            @JsonProperty('imagEnd') T imagEnd,
+            @JsonProperty('one') T one) {
 
         this.one = one
 
@@ -45,6 +57,7 @@ class Grid<T> {
         this.incrementReal = (realEnd - realStart) / width
     }
 
+    @JsonIgnore
     private final defaultPointCreator = { int x, int y ->
         def point = new Point<T>()
         point.x = x
@@ -54,33 +67,30 @@ class Grid<T> {
         point
     }
 
-    private final defaultPartitionHandler = { List<Point<?>> pointList ->
-        println pointList
-    }
-
-    int calculateTotalPartitions(int size) {
+    @JsonIgnore
+    int calculateTotalPartitions(int partitionSize) {
 
         // assume that width and height are the same.
         // todo need to enforce/simplify that width and height are the same...
         int numPoints = (width + 1) * (width + 1)
 
-        int remainder = numPoints % size
+        int remainder = numPoints % partitionSize
 
         def add = remainder > 0 ? 1 : 0
 
-        numPoints / size + add
+        numPoints / partitionSize + add
     }
 
-
+    @JsonIgnore
     void handlePartitions(int partitionSize, PartitionHandler partitionHandler) {
 
+        int totalPartitions = calculateTotalPartitions(partitionSize)
 
-        def totalPartitions = calculateTotalPartitions(partitionSize)
-
-        def totalPoints = (width+1) * (width+1)
+        int totalPoints = (width+1) * (width+1)
 
         int counter = 0
-        List<Point<T>> pointList = []
+
+        List<Point<T>> partition = []
 
         IntStream.rangeClosed(0, height as Integer).forEach { y ->
 
@@ -91,24 +101,27 @@ class Grid<T> {
                 def point = new Point<T>()
                 point.x = x
                 point.y = y
-                point.real = realStart + incrementReal * point.x
-                point.imag = imagStart + incrementImag * point.y
 
-                pointList.add(point)
+//                point.real = realStart + incrementReal * point.x
+//                point.imag = imagStart + incrementImag * point.y
+
+                partition.add(point)
 
                 if (counter == partitionSize) {
-                    partitionHandler.handle(totalPoints,  totalPartitions, pointList)
-                    pointList = []
+//                    partitionHandler.handle(totalPoints,  totalPartitions, partition)
+                    partitionHandler.handle(partition)
+                    partition = []
                     counter = 0
                 }
             }
         }
 
-        if (pointList.size() > 0) {
-            partitionHandler.handle(totalPoints,  totalPartitions, pointList)
+        if (partition.size() > 0) {
+            partitionHandler.handle(partition)
         }
     }
 
+    @JsonIgnore
     List<Point> getPointsInGrid(Closure<Point> createsAPoint = defaultPointCreator) {
 
         final List<Point> points = []

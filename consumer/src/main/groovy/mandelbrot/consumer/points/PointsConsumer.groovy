@@ -5,9 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.annotation.ImportResource
 
 /**
- * (c) Exchange Solutions Inc.
- * <br>
- * Created by mfriedman on 2016-10-07.
+ *
+ * Mandelbrot Experiment
+*
+ * Created by Matt Friedman 2016-10-07
  */
 @SpringBootApplication
 @ImportResource([
@@ -18,6 +19,6 @@ import org.springframework.context.annotation.ImportResource
 class PointsConsumer {
 
     public static void main(String[] args) {
-        SpringApplication.run(PointsConsumer, args)
+            SpringApplication.run(PointsConsumer, args)
     }
 }

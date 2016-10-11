@@ -8,9 +8,10 @@ import java.awt.image.BufferedImage
 import java.util.List
 
 /**
- * (c) Exchange Solutions Inc.
- * <br>
- * Created by mfriedman on 2016-09-12.
+ *
+ * Mandelbrot Experiment
+*
+ * Created by Matt Friedman 2016-09-12
  */
 class MandelbrotProcessor<T> {
 

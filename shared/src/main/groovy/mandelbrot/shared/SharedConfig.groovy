@@ -2,9 +2,10 @@ package mandelbrot.shared
 
 import org.springframework.context.annotation.Configuration
 /**
- * (c) Exchange Solutions Inc.
- * <br>
- * Created by mfriedman on 2016-10-06.
+ *
+ * Mandelbrot Experiment
+*
+ * Created by Matt Friedman 2016-10-06
  */
 @Configuration
 class SharedConfig {

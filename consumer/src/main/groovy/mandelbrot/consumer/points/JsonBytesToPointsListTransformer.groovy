@@ -7,9 +7,10 @@ import org.springframework.integration.annotation.Transformer
 import org.springframework.stereotype.Component
 
 /**
- * (c) Exchange Solutions Inc.
- * <br>
- * Created by mfriedman on 2016-10-07.
+ *
+ * Mandelbrot Experiment
+*
+ * Created by Matt Friedman 2016-10-07
  */
 @Component
 class JsonBytesToPointsListTransformer {
@@ -19,8 +20,6 @@ class JsonBytesToPointsListTransformer {
     @Transformer
     List<Point> pointList(byte[] bytes) {
         def tr = new TypeReference<List<Point>>(){}
-        def val =objectMapper.readValue(bytes, tr)
-        val
+        objectMapper.readValue(bytes, tr)
     }
-
 }

@@ -1,8 +1,9 @@
 package mandelbrot
 /**
- * (c) Exchange Solutions Inc.
- * <br>
- * Created by mfriedman on 2016-09-12.
+ *
+ * Mandelbrot Experiment
+*
+ * Created by Matt Friedman 2016-09-12
  */
 abstract class GenericMandelbrotAlgorithm<T> implements MandelbrotAlgorithm<T> {
 

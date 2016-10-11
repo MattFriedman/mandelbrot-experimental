@@ -1,10 +1,11 @@
 package mandelbrot
 /**
- * (c) Exchange Solutions Inc.
- * <br>
- * Created by mfriedman on 2016-10-08.
+ *
+ * Mandelbrot Experiment
+*
+ * Created by Matt Friedman 2016-10-08
  */
-interface PartitionHandler {
+interface PartitionHandler<T> {
 
-    void handle(int totalPoints,  int totalPartitions, List<Point> partition)
+    void handle( List<Point<T>> partition)
 }

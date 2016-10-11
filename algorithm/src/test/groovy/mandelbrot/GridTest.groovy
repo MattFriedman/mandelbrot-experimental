@@ -1,16 +1,44 @@
 package mandelbrot
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import org.apache.commons.collections4.ListUtils
 import spock.lang.Specification
 
 import java.util.stream.Collectors
 
 /**
- * (c) Exchange Solutions Inc.
- * <br>
- * Created by mfriedman on 2016-10-03.
+ *
+ * Mandelbrot Experiment
+*
+ * Created by Matt Friedman 2016-10-03
  */
 class GridTest extends Specification {
+
+
+    def 'test serialize'() {
+        given:
+
+            def mapper = new ObjectMapper()
+
+            def width = 128
+            def height = 128
+
+            def realStart = Grid.defaultRealStart
+            def realEnd = Grid.defaultRealEnd
+            def imagStart = Grid.defaultImagStart
+            def imagEnd = Grid.defaultImagEnd
+
+            def grid = new Grid<Double>(width, height, realStart, realEnd, imagStart, imagEnd, 1d)
+        when:
+
+            def str = mapper.writeValueAsString(grid)
+        then:
+            noExceptionThrown()
+        when:
+            def grid1 = mapper.readValue(str, Grid)
+        then:
+            grid1.height == 128
+    }
 
 
     def 'test calculate total partitions'() {
@@ -58,6 +86,11 @@ class GridTest extends Specification {
                 @Override
                 void handle(int totalPoints, int totalPartitions, List<Point> partition) {
                     println partition
+                }
+
+                @Override
+                void handle(List partition) {
+
                 }
             }
 

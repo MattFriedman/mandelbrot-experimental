@@ -5,11 +5,12 @@
        xmlns:int-amqp="http://www.springframework.org/schema/integration/amqp"
        xmlns:rabbit="http://www.springframework.org/schema/rabbit"
        xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
+       xmlns:file="http://www.springframework.org/schema/integration/file"
        xsi:schemaLocation="http://www.springframework.org/schema/integration/amqp http://www.springframework.org/schema/integration/amqp/spring-integration-amqp.xsd
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
 		http://www.springframework.org/schema/integration/stream http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd
 		http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/integration/file http://www.springframework.org/schema/integration/file/spring-integration-file.xsd">
 
     <int-amqp:inbound-channel-adapter channel="incomingResults"
                                       queue-names="results"
@@ -17,8 +18,39 @@
 
     <int:json-to-object-transformer input-channel="incomingResults" output-channel="mandelbrotResultsChannel"/>
 
-    <int:aggregator input-channel="mandelbrotResultsChannel" output-channel="imageDataChannel"/>
 
-    <int:service-activator id="imageProcessor" input-channel="imageDataChannel" ref="imageService"/>
+    <!--<int:channel id="mandelbrotResultsChannel">-->
+        <!--<int:interceptors>-->
+            <!--<int:wire-tap channel="file"/>-->
+        <!--</int:interceptors>-->
+    <!--</int:channel>-->
+
+    <!--<int:channel id="file"/>-->
+
+    <int:service-activator  input-channel="mandelbrotResultsChannel" ref="resultFileWriter" />
+
+    <!--<int:aggregator input-channel="mandelbrotResultsChannel" output-channel="imageDataChannel"/>-->
+
+    <!--<int:service-activator id="imageProcessor" input-channel="imageDataChannel" ref="imageService"/>-->
+
+
+
+
+
+
+
+
+    <file:inbound-channel-adapter directory="#{T(java.lang.System).getProperty('java.io.tmpdir')}"
+                                  filename-pattern="*.mandelbrot-result"
+                                  channel="resultFileChannel"
+                                  use-watch-service="true"
+                                  watch-events="CREATE"
+                                  prevent-duplicates="true">
+        <int:poller fixed-rate="100" />
+    </file:inbound-channel-adapter>
+
+    <int:channel id="resultFileChannel"/>
+
+    <int:service-activator ref="resultFileProcessingService" input-channel="resultFileChannel"/>
 
 </beans>

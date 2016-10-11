@@ -1,8 +1,9 @@
 package mandelbrot
 /**
- * (c) Exchange Solutions Inc.
- * <br>
- * Created by mfriedman on 2016-09-10.
+ *
+ * Mandelbrot Experiment
+*
+ * Created by Matt Friedman 2016-09-10
  */
 class Point<T> {
 
