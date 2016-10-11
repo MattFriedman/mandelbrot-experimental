@@ -22,8 +22,8 @@
 
     <int:chain input-channel="bytesFromRabbit">
         <int:transformer ref="bytesToGridTransformer"/>
-        <int:transformer ref="jsonBytesToPointsListTransformer"/>
-        <int:transformer ref="pointListTransformer"/>
+        <int:transformer ref="jsonBytesToCoordinatesListTransformer"/>
+        <int:transformer ref="coordinatesListTransformer"/>
         <int:header-enricher>
             <int:header name="width" expression="headers['grid'].width" type="java.lang.Integer"/>
             <int:header name="grid" overwrite="true" value="null"/>

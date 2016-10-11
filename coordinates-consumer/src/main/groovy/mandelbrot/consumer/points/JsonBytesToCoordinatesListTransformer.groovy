@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component
  * Created by Matt Friedman 2016-10-07
  */
 @Component
-class JsonBytesToPointsListTransformer {
+class JsonBytesToCoordinatesListTransformer {
 
     ObjectMapper objectMapper = new ObjectMapper()
 

@@ -19,9 +19,9 @@ import org.springframework.context.annotation.ImportResource
         'results-consumer.xml',
         'shared-rabbit-config.xml'
 ])
-class PointsConsumer {
+class CoordinatesConsumer {
 
     public static void main(String[] args) {
-            SpringApplication.run(PointsConsumer, args)
+            SpringApplication.run(CoordinatesConsumer, args)
     }
 }

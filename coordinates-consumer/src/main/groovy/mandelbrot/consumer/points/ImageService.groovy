@@ -17,9 +17,9 @@ import java.awt.image.BufferedImage
 import java.util.stream.IntStream
 
 /**
-
  * Created by Matt Friedman 2016-10-07
  */
+@Deprecated
 @Component
 class ImageService {
 

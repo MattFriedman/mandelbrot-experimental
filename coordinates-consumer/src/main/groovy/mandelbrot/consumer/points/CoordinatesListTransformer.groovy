@@ -19,7 +19,7 @@ import java.util.stream.Collectors
  * Created by Matt Friedman 2016-10-07
  */
 @Component
-class PointListTransformer {
+class CoordinatesListTransformer {
 
     @Transformer
     List<MandelbrotResult> transform(
