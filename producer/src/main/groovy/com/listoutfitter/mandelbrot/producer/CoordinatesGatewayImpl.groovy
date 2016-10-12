@@ -20,7 +20,7 @@ import javax.annotation.PostConstruct
  * Created by Matt Friedman 2016-10-08
  */
 @Component
-class PointsGatewayImpl implements PointsGateway {
+class CoordinatesGatewayImpl implements CoordinatesGateway {
 
     RabbitTemplate rabbitTemplate
 
@@ -62,13 +62,7 @@ class PointsGatewayImpl implements PointsGateway {
 //    }
 
     @Override
-    void send(
-            List<Point> pointList,
-            Grid grid,
-            int totalPartitions,
-            UUID correlationId,
-            int maxIterations
-    ) {
+    void send(List<Point> pointList, Grid grid, int totalPartitions, UUID correlationId, int maxIterations) {
 
         def jsonPointList = objectMapper.writeValueAsBytes(pointList)
         def jsonGrid = objectMapper.writeValueAsBytes(grid)

@@ -3,7 +3,6 @@
  * All Rights Reserved.
  */
 
-
 buildscript {
     repositories {
         mavenCentral()
@@ -17,8 +16,8 @@ apply plugin: 'spring-boot'
 
 dependencies {
 
-    compile project(':algorithm')
     compile project(':shared')
+    compile project(':algorithm')
 
     compile("org.springframework.boot:spring-boot-starter-web")
 
@@ -30,14 +29,8 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-amqp")
 
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
-
-
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
 
     // https://mvnrepository.com/artifact/org.spockframework/spock-spring
     testCompile group: 'org.spockframework', name: 'spock-spring', version: '1.0-groovy-2.4'
-
-
 }
-
-

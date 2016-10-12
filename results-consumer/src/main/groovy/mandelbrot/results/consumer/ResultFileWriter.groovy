@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package mandelbrot.consumer.points
+package mandelbrot.results.consumer
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.databind.ObjectMapper

@@ -20,7 +20,7 @@ import spock.lang.Specification
 class GridPartitionConfigTest extends Specification {
 
     @Autowired
-    PointsGateway pointsGateway
+    CoordinatesGateway pointsGateway
 
     def 'using partition handler'() {
         given:

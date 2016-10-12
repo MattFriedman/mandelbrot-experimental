@@ -8,5 +8,6 @@ rootProject.name = 'mandelbrot'
 include 'algorithm'
 include 'producer'
 include 'shared'
-include 'consumer'
+include 'coordinates-consumer'
+include 'results-consumer'
 

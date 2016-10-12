@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package mandelbrot.consumer.points
+package mandelbrot.results.consumer
 
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -11,7 +11,6 @@ import com.google.common.base.Charsets
 import mandelbrot.MandelbrotResult
 import org.apache.commons.io.FileUtils
 import org.apache.commons.io.IOUtils
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.integration.annotation.ServiceActivator
 import org.springframework.messaging.Message
 import org.springframework.stereotype.Component
@@ -40,8 +39,6 @@ class ResultFileProcessingService {
     def typeRef = new TypeReference<List<MandelbrotResult>>() {}
 
 
-    @Autowired
-    ImageService imageService
 
 
     static class MandelbrotImageWriter {

@@ -21,7 +21,7 @@
 
     <!--<int:gateway id="pointsGateway"-->
                  <!--default-request-channel="outgoingPartitionChannel"-->
-                 <!--service-interface="com.listoutfitter.mandelbrot.producer.PointsGateway"/>-->
+                 <!--service-interface="com.listoutfitter.mandelbrot.producer.CoordinatesGatewayteway"/>-->
 
     <!--<int:object-to-json-transformer input-channel="outgoingPartitionChannel" output-channel="jsonPointsChannel"/>-->
 

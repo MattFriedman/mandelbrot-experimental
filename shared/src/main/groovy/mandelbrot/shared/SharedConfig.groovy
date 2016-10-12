@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration
 
  * Created by Matt Friedman 2016-10-06
  */
+@Deprecated
 @Configuration
 class SharedConfig {
     public final static pointsQueueName = 'points'
