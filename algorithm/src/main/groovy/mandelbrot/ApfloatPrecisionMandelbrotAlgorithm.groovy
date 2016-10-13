@@ -14,34 +14,34 @@ import org.apfloat.Apfloat
  */
 class ApfloatPrecisionMandelbrotAlgorithm extends GenericMandelbrotAlgorithm<Apfloat> {
 
-    final ZERO = new Apfloat(0, precision)
-    final TWO = new Apfloat(2, precision)
-    final FOUR = new Apfloat(4, precision)
+    final long precision
 
-    final int precision
-
-    ApfloatPrecisionMandelbrotAlgorithm(final int maxIterations, final int precision) {
+    ApfloatPrecisionMandelbrotAlgorithm(final int maxIterations, final long precision) {
         super(maxIterations)
         this.precision = precision
     }
 
     @Override
-    MandelbrotResult compute(Apfloat real, Apfloat imag) {
-        super.compute(real, imag)
-    }
+    MandelbrotResult compute(Apfloat c_re, Apfloat c_im) {
 
-    @Override
-    Apfloat two() {
-        TWO
-    }
+        final Apfloat four = new Apfloat(4, precision)
+        final Apfloat two = new Apfloat(2, precision)
 
-    @Override
-    Apfloat zero() {
-        ZERO
-    }
+        Apfloat x = Apfloat.ZERO.precision(precision)
+        Apfloat y = Apfloat.ZERO.precision(precision)
 
-    @Override
-    Apfloat four() {
-        FOUR
+        int iterations = 0;
+
+        while (x * x  + y * y < four && iterations < maxIterations) {
+            Apfloat x_new = x * x - y * y + c_re;
+            y = two * x * y + c_im;
+            x = x_new;
+            iterations++;
+        }
+
+        MandelbrotResult.builder()
+                .inSet(iterations < maxIterations)
+                .totalIterations(iterations)
+                .build()
     }
 }

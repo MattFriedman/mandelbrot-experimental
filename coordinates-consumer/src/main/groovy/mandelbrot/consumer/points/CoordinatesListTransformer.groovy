@@ -5,15 +5,14 @@
 
 package mandelbrot.consumer.points
 
-import mandelbrot.DoublePrecisionMandelbrotAlgorithm
-import mandelbrot.Grid
-import mandelbrot.MandelbrotResult
-import mandelbrot.Point
+import mandelbrot.*
+import org.apfloat.Apfloat
 import org.springframework.integration.annotation.Transformer
 import org.springframework.messaging.handler.annotation.Header
 import org.springframework.stereotype.Component
 
 import java.util.stream.Collectors
+
 /**
 
  * Created by Matt Friedman 2016-10-07
@@ -21,22 +20,42 @@ import java.util.stream.Collectors
 @Component
 class CoordinatesListTransformer {
 
+    static {
+        Mandelbrot.init()
+    }
+
     @Transformer
     List<MandelbrotResult> transform(
-            List<Point<Double>> points,
+            List<Point> points,
             @Header('maxIterations') int maxIterations,
             @Header('grid') Grid grid,
             @Header('sequenceSize') seqSize,
-            @Header('correlationId') id
-
+            @Header('correlationId') id,
+            @Header('id') String messageId,
+            @Header('precision') Long precision
     ) {
 
-        def algo = new DoublePrecisionMandelbrotAlgorithm(maxIterations)
+        final MandelbrotAlgorithm algo
+        final converter
+
+        if (precision > 0) {
+            algo = new ApfloatPrecisionMandelbrotAlgorithm(maxIterations, precision)
+            converter = { int i ->
+                new Apfloat(i, precision)
+            }
+        } else {
+            algo = new DoublePrecisionMandelbrotAlgorithm(maxIterations)
+            converter = { int i ->
+                Double.valueOf(i)
+            }
+        }
+
+        println "Processing partition. ID: ${messageId}"
 
         points.parallelStream().map { point ->
 
-            point.real = grid.realStart + grid.incrementReal * point.x
-            point.imag = grid.imagStart + grid.incrementImag * point.y
+            point.real = grid.realStart + grid.incrementReal * converter.call(point.x)
+            point.imag = grid.imagStart + grid.incrementImag * converter.call(point.y)
 
             def result = algo.compute(point.real, point.imag)
             result.x = point.x

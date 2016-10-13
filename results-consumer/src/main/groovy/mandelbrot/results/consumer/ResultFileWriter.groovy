@@ -25,7 +25,7 @@ class ResultFileWriter {
 
     @EqualsAndHashCode
     @Builder
-   public  static class Meta {
+    public static class Meta {
         @JsonIgnore
         OutputStream outputStream
 
@@ -85,7 +85,7 @@ class ResultFileWriter {
         def meta = map.get(correlationId)
         meta.recordsWritten = ++meta.recordsWritten
 
-        if( 0 == meta.recordsWritten % 10) {
+        if (0 == meta.recordsWritten % 10) {
             println "flushing output stream...."
             outputStream.flush()
         }

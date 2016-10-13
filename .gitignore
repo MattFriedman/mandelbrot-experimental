@@ -1,8 +1,10 @@
 .idea
 /build
 /algorithm/build
-/consumer/build
+/coordinates-consumer/build
+/results-consumer/build
 /producer/build
 /shared/build
+/out
 
 hs_err_pid*

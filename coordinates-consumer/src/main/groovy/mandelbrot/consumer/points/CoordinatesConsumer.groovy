@@ -8,7 +8,6 @@ package mandelbrot.consumer.points
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.annotation.ImportResource
-
 /**
 
  * Created by Matt Friedman 2016-10-07
@@ -19,6 +18,9 @@ import org.springframework.context.annotation.ImportResource
         'shared-rabbit-config.xml'
 ])
 class CoordinatesConsumer {
+
+
+
 
     public static void main(String[] args) {
             SpringApplication.run(CoordinatesConsumer, args)

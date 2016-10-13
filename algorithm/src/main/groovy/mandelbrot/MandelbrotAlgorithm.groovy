@@ -11,7 +11,7 @@ package mandelbrot
  */
 interface MandelbrotAlgorithm<T> {
     MandelbrotResult compute(T real, T imag)
-    T two()
-    T zero()
-    T four()
+//    T two()
+//    T zero()
+//    T four()
 }

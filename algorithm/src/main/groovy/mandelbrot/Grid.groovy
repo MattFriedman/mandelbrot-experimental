@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 
 import java.util.stream.IntStream
+
 /**
 
  * Created by Matt Friedman 2016-10-02
@@ -36,6 +37,22 @@ class Grid<T> {
 //    static Grid<Double> of(double width, double height) {
 //        new Grid<Double>(width, height, defaultRealStart, defaultRealEnd, defaultImagStart, defaultImagEnd, 1)
 //    }
+
+   static  Grid<T> withZoom(T width, T height, Zoom zoom, T one) {
+
+        def realStart = zoom.X - 2 / zoom.zoomFactor
+        def realEnd = zoom.X + 1 / zoom.zoomFactor
+        def imagStart = zoom.Y - 1.5 / zoom.zoomFactor
+        def imageEnd = zoom.Y + 1.5 / zoom.zoomFactor
+
+        new Grid<T>(width, height, realStart, realEnd, imagStart, imageEnd, one)
+    }
+
+    //        def realStart = X - 2/zoom
+//        def realEnd = X + 1/zoom
+//        def imagStart = Y - 1.5/zoom
+//        def imageEnd = Y + 1.5/zoom
+
 
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public Grid(
@@ -87,10 +104,6 @@ class Grid<T> {
     @JsonIgnore
     void handlePartitions(int partitionSize, PartitionHandler partitionHandler) {
 
-        int totalPartitions = calculateTotalPartitions(partitionSize)
-
-        int totalPoints = (width+1) * (width+1)
-
         int counter = 0
 
         List<Point<T>> partition = []
@@ -105,13 +118,9 @@ class Grid<T> {
                 point.x = x
                 point.y = y
 
-//                point.real = realStart + incrementReal * point.x
-//                point.imag = imagStart + incrementImag * point.y
-
                 partition.add(point)
 
                 if (counter == partitionSize) {
-//                    partitionHandler.handle(totalPoints,  totalPartitions, partition)
                     partitionHandler.handle(partition)
                     partition = []
                     counter = 0

@@ -15,17 +15,59 @@ class DoublePrecisionMandelbrotAlgorithm extends GenericMandelbrotAlgorithm<Doub
     }
 
     @Override
-    Double two() {
-        2D
+    MandelbrotResult compute(Double c_re, Double c_im) {
+
+        double x = 0D
+        double y = 0D
+
+        int iterations = 0;
+
+        while (x * x  + y * y < 4D && iterations < maxIterations) {
+            double x_new = x * x - y * y + c_re;
+            y = 2D * x * y + c_im;
+            x = x_new;
+            iterations++;
+        }
+
+        MandelbrotResult.builder()
+                .inSet(iterations < maxIterations)
+                .totalIterations(iterations)
+                .build()
     }
 
-    @Override
-    Double zero() {
-        0D
-    }
+//    @Override
+//    MandelbrotResult compute(final double c_re, final double c_im) {
+//
+//        double x = 0D
+//        double y = 0D
+//
+//        int iterations = 0;
+//
+//        while (x * x  + y * y < 4D && iterations < maxIterations) {
+//            double x_new = x * x - y * y + c_re;
+//            y = 2D * x * y + c_im;
+//            x = x_new;
+//            iterations++;
+//        }
+//
+//        MandelbrotResult.builder()
+//                .inSet(iterations < maxIterations)
+//                .totalIterations(iterations)
+//                .build()
+//    }
 
-    @Override
-    Double four() {
-        4D
-    }
+//    @Override
+//    Double two() {
+//        2D
+//    }
+//
+//    @Override
+//    Double zero() {
+//        0D
+//    }
+//
+//    @Override
+//    Double four() {
+//        4D
+//    }
 }

@@ -20,6 +20,8 @@
                                       queue-names="points"
                                       connection-factory="connectionFactory"/>
 
+
+
     <int:chain input-channel="bytesFromRabbit">
         <int:transformer ref="bytesToGridTransformer"/>
         <int:transformer ref="jsonBytesToCoordinatesListTransformer"/>
