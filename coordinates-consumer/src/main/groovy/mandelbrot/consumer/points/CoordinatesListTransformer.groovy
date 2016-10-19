@@ -52,12 +52,18 @@ class CoordinatesListTransformer {
 
         println "Processing partition. ID: ${messageId}"
 
+
+
         points.parallelStream().map { point ->
 
             point.real = grid.realStart + grid.incrementReal * converter.call(point.x)
             point.imag = grid.imagStart + grid.incrementImag * converter.call(point.y)
 
+
+
             def result = algo.compute(point.real, point.imag)
+
+
             result.x = point.x
             result.y = point.y
             result

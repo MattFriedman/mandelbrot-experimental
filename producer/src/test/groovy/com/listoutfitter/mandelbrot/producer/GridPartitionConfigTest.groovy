@@ -39,9 +39,9 @@ class GridPartitionConfigTest extends Specification {
 
             def correlationId = UUID.randomUUID()
 
-            final int maxIterations = 2500
+            final int maxIterations = 1000
 
-            def width = 2560
+            def width = 128
 
             def height = width
 
@@ -76,6 +76,11 @@ Magnification: 1.480e66 Coordinates (real,imaginary):
 
             def zoomFactor =  new Apfloat('256e10', precision)
 
+
+
+            X = Apfloat.ZERO
+            Y = Apfloat.ZERO
+            zoomFactor = Apfloat.ONE
 
             def zoom = apfloatPrecisionMandelbrotFactory.zoom(X, Y, zoomFactor, precision)
             def grid = apfloatPrecisionMandelbrotFactory.grid(width, height, zoom, precision)

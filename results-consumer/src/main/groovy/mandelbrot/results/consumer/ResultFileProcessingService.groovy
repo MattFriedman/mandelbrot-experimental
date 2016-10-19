@@ -26,6 +26,7 @@ import java.awt.*
 import java.awt.image.BufferedImage
 import java.util.List
 import java.util.stream.IntStream
+
 /**
 
  * Created by Matt Friedman 2016-10-10
@@ -39,12 +40,10 @@ class ResultFileProcessingService {
     def typeRef = new TypeReference<List<MandelbrotResult>>() {}
 
 
-
-
     static class MandelbrotImageWriter {
 
         final double INCH_2_CM = 2.54
-        final double  DPI = 300
+        final double DPI = 300
 
         void write(BufferedImage image) {
 
@@ -133,8 +132,17 @@ class ResultFileProcessingService {
                 List<MandelbrotResult> list = objectMapper.readValue(line, typeRef)
 
                 list.parallelStream().forEach { result ->
+
                     final int color = result.inSet ? colors[result.totalIterations - 1] : black
-                    img.setRGB(result.x, result.y, color)
+
+                    if (result.inSet) {
+                        def finalColor = Color.HSBtoRGB(result.hue, result.saturation, result.brightness);
+                        img.setRGB(result.x, result.y, finalColor)
+                    } else {
+                        img.setRGB(result.x, result.y, 0)
+                    }
+
+
                 }
             }
         } finally {

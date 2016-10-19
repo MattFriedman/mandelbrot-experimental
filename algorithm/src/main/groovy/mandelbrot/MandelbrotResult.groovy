@@ -6,7 +6,6 @@
 package mandelbrot
 
 import groovy.transform.builder.Builder
-
 /**
 
  * Created by Matt Friedman 2016-09-11
@@ -17,6 +16,14 @@ class MandelbrotResult {
     Integer y
     Integer totalIterations
     Boolean  inSet
+
+
+
+    float hue
+    float saturation
+    float brightness
+
+
 
 
     @Override
